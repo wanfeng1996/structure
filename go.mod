@@ -1,4 +1,4 @@
-module structure
+module github.com/wanfeng1996/structure
 
 go 1.23.1
 
