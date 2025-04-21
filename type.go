@@ -2,6 +2,7 @@ package structure
 
 import (
 	"golang.org/x/exp/constraints"
+	"slices"
 	"time"
 )
 
@@ -15,14 +16,23 @@ type Type interface {
 }
 type Iter[T Type] []*T
 
-func transition(tt []*time.Time) TimeSort {
-	var ts TimeSort
-	for i := range tt {
-		if tt[i] == nil {
-			continue
+func (it Iter[T]) transition() Iter[T] {
+	slices.DeleteFunc(it, func(t *T) bool {
+		if t == nil {
+			return true
 		}
-		ts = append(ts, *tt[i])
+		return false
+	})
+	return it
+}
+
+func (it Iter[T]) Index() []T {
+	var res []T
+	for i := range it {
+		if it[i] != nil {
+			res = append(res, *it[i])
+		}
 	}
 
-	return ts
+	return res
 }
