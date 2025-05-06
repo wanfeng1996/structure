@@ -87,12 +87,17 @@ func fields[T Type](data interface{}, fields []string) Iter[T] {
 	slices.Reverse(idx) //查找出来是倒叙，顺序掉正
 	for i := 0; i < value.Len(); i++ {
 		vi = getValue(getPtrStruct(value.Index(i)), idx)
-		//如果为空不做记录
+		//如果为空，跳出循环
 		if vi == nil {
 			continue
 		}
 
 		res[i] = Address(vi.Interface().(T)) //添加当前值到对应位置
+
+		//if vi.IsZero() {
+		//	continue
+		//}
+		//res = append(res, vi.Interface().(T))
 	}
 	return res
 }
@@ -101,12 +106,16 @@ func getValue(v reflect.Value, slice []int) *reflect.Value {
 	for i := 0; i < len(slice); i++ {
 		v = v.Field(slice[i])
 
-		if v.Kind() == reflect.Ptr {
-			v = v.Elem()
-		}
+		//if v.IsZero() || !v.IsValid() {
+		//	return reflect.Zero(v.Type())
+		//}
 
 		if !v.IsValid() {
 			return nil
+		}
+
+		if v.Kind() == reflect.Ptr {
+			v = v.Elem()
 		}
 
 	}
