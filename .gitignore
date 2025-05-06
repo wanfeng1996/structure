@@ -28,5 +28,5 @@ go.work.sum
 .zshrc
 .zshrc.save
 
-model/
-pkg/
+#model/
+#pkg/

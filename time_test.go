@@ -1,7 +1,6 @@
 package structure
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
@@ -23,9 +22,9 @@ func SCTimeDate(num int) []TimeDate {
 }
 
 func TestTime(t *testing.T) {
-	var list = SCTimeDate(1000)
-	slices := StructField[time.Time](list, "Da")
-
-	fmt.Println(transition(slices).Min())
-	fmt.Println(transition(slices).Max())
+	//var list = SCTimeDate(1000)
+	//slices := StructField[time.Time](list, "Da")
+	//
+	//fmt.Println(transition(slices).Min())
+	//fmt.Println(transition(slices).Max())
 }
